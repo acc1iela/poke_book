@@ -6,6 +6,7 @@ import Card from './components/Card';
 function App() {
   const initialURL = 'https://pokeapi.co/api/v2/pokemon/';
   const [loading, setLoading] = useState(true);
+  const [pokemonData, setPokemonData] = useState([]);
   useEffect(() => {
     const fetchPokemonData = async () => {
       let res = await getAllPokemon(initialURL);
@@ -15,13 +16,14 @@ function App() {
     fetchPokemonData();
   }, []);
 
-  const loadPokemon = (data) => {
-    let _pokemonData = Promise.all(
+  const loadPokemon = async (data) => {
+    let _pokemonData = await Promise.all(
       data.map((pokemon) => {
         let pokemonRecord = getPokemon(pokemon.url);
         return pokemonRecord;
       })
     );
+    setPokemonData(_pokemonData);
   };
 
   return (
@@ -31,8 +33,8 @@ function App() {
       ) : (
         <>
           <div className="pokemonCardContainer">
-            {loadPokemon.map((pokemon, i) => {
-              return <Card key={i} pokemon={pokemon} />;
+            {pokemonData.map((pokemon, i) => {
+              return <div>Pokemon</div>;
             })}
           </div>
         </>
