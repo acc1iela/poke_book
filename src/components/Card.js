@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Card = (pokemon) => {
+const Card = ({ pokemon }) => {
   return (
     <div className="card">
       <div className="cardImg">
